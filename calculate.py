@@ -1,4 +1,5 @@
 import numpy;
+import math
 
 # Calculates the value for Mu
 def mu(matrix):
@@ -18,7 +19,15 @@ def sigma(matrix, mu):
 
     sigma = numpy.zeros(shape=(M, M))
     for idx in range(N):
-        sigma += (matrix[:, [idx]] - mu) * (matrix[:, [idx]] - mu).T
+        sigma += numpy.outer((matrix[:, [idx]] - mu), (matrix[:, [idx]] - mu).T)
     sigma /= N
 
     return sigma
+
+def probability(x, mu, sigma):
+    P = x.shape[0]
+
+    prob = 1 / ( (2 * math.pi) ** (P / 2) * numpy.linalg.det(sigma) ** (0.5) )
+    exp = math.exp(-0.5 * numpy.dot(numpy.dot((x - mu).T, numpy.linalg.inv(sigma)), x - mu))
+
+    return prob * exp

@@ -1,5 +1,6 @@
 import numpy;
 from calculate import mu, sigma
+from predict import LDA, QDA
 
 setosa = numpy.zeros(shape=(4, 50))
 versicolour = numpy.zeros(shape=(4, 50))
@@ -40,3 +41,7 @@ sigma3 = sigma(virginica, mu1)
 
 # Calculate Avg. Sigma
 sigma = (sigma1 + sigma2 + sigma3) / 3
+
+# Make predictions
+LDA(setosa, versicolour, virginica, mu1, mu2, mu3, sigma)
+QDA(setosa, versicolour, virginica, mu1, mu2, mu3, sigma1, sigma2, sigma3)
