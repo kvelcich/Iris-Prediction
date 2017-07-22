@@ -1,7 +1,7 @@
-from calculate import probability
+from calculate import pdf
 
 def LDA(setosa, versicolour, virginica, mu1, mu2, mu3, sigma):
-    N = setosa.shape[1]
+    N = setosa.shape[0]
 
     training1 = 0
     training2 = 0
@@ -12,21 +12,27 @@ def LDA(setosa, versicolour, virginica, mu1, mu2, mu3, sigma):
 
     for i in range(N):
         # Setosa training & test data
-        if probability(setosa[:, [i]], mu1, sigma) < probability(setosa[:, [i]], mu2, sigma) or probability(setosa[:, [i]], mu1, sigma) < probability(setosa[:, [i]], mu3, sigma):
+        if (pdf(setosa[[i], :].T, mu1, sigma) < pdf(setosa[[i], :].T, mu2, sigma)
+            or pdf(setosa[[i], :].T, mu1, sigma) < pdf(setosa[[i], :].T, mu3, sigma)):
+
             if i < 40:
                 training1 += 1
             else:
                 test1 += 1
 
         # Versicolour training & test data
-        if probability(versicolour[:, [i]], mu2, sigma) < probability(versicolour[:, [i]], mu1, sigma) or probability(versicolour[:, [i]], mu2, sigma) < probability(versicolour[:, [i]], mu3, sigma):
+        if (pdf(versicolour[[i], :].T, mu2, sigma) < pdf(versicolour[[i], :].T, mu1, sigma)
+            or pdf(versicolour[[i], :].T, mu2, sigma) < pdf(versicolour[[i], :].T, mu3, sigma)):
+
             if i < 40:
                 training2 += 1
             else:
                 test2 += 1
 
         # Virginica training & test data
-        if probability(virginica[:, [i]], mu3, sigma) < probability(virginica[:, [i]], mu1, sigma) or probability(virginica[:, [i]], mu3, sigma) < probability(virginica[:, [i]], mu2, sigma):
+        if (pdf(virginica[[i], :].T, mu3, sigma) < pdf(virginica[[i], :].T, mu1, sigma)
+            or pdf(virginica[[i], :].T, mu3, sigma) < pdf(virginica[[i], :].T, mu2, sigma)):
+
             if i < 40:
                 training3 += 1
             else:
@@ -55,7 +61,7 @@ def LDA(setosa, versicolour, virginica, mu1, mu2, mu3, sigma):
     print "TOTAL: " + str(training1 + training2 + training3 + test1 + test2 + test3) + " out of 150, or " + str((training1 + training2 + training3 + test1 + test2 + test3) / 150.0 * 100) + "% classified incorrectly.\n"
 
 def QDA(setosa, versicolour, virginica, mu1, mu2, mu3, sigma1, sigma2, sigma3):
-    N = setosa.shape[1]
+    N = setosa.shape[0]
 
     training1 = 0
     training2 = 0
@@ -66,21 +72,27 @@ def QDA(setosa, versicolour, virginica, mu1, mu2, mu3, sigma1, sigma2, sigma3):
 
     for i in range(N):
         # Setosa training & test data
-        if probability(setosa[:, [i]], mu1, sigma1) < probability(setosa[:, [i]], mu2, sigma2) or probability(setosa[:, [i]], mu1, sigma1) < probability(setosa[:, [i]], mu3, sigma3):
+        if (pdf(setosa[[i], :].T, mu1, sigma1) < pdf(setosa[[i], :].T, mu2, sigma2)
+            or pdf(setosa[[i], :].T, mu1, sigma1) < pdf(setosa[[i], :].T, mu3, sigma3)):
+
             if i < 40:
                 training1 += 1
             else:
                 test1 += 1
 
         # Versicolour training & test data
-        if probability(versicolour[:, [i]], mu2, sigma2) < probability(versicolour[:, [i]], mu1, sigma1) or probability(versicolour[:, [i]], mu2, sigma2) < probability(versicolour[:, [i]], mu3, sigma3):
+        if (pdf(versicolour[[i], :].T, mu2, sigma2) < pdf(versicolour[[i], :].T, mu1, sigma1)
+            or pdf(versicolour[[i], :].T, mu2, sigma2) < pdf(versicolour[[i], :].T, mu3, sigma3)):
+
             if i < 40:
                 training2 += 1
             else:
                 test2 += 1
 
         # Virginica training & test data
-        if probability(virginica[:, [i]], mu3, sigma3) < probability(virginica[:, [i]], mu1, sigma1) or probability(virginica[:, [i]], mu3, sigma3) < probability(virginica[:, [i]], mu2, sigma2):
+        if (pdf(virginica[[i], :].T, mu3, sigma3) < pdf(virginica[[i], :].T, mu1, sigma1)
+            or pdf(virginica[[i], :].T, mu3, sigma3) < pdf(virginica[[i], :].T, mu2, sigma2)):
+
             if i < 40:
                 training3 += 1
             else:
