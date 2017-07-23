@@ -15,7 +15,7 @@ Numpy is a library which I used for matrix creation and calculation. To install,
 pip install numpy
 ```
 
-#### 3. Run the program
+#### 4. Run the program
 To run the program, in the main directory of the project, run the following command:
 ```
 python main.py
